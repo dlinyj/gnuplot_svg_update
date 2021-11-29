@@ -17,7 +17,7 @@ def create_file_to_plot(data_for_plot):
 
 def get_remote_data():
     # Здесь мы каким-то образом получаем удалённые данные
-    # Но в данном случае будут передаваться словарь фиксированных данных.
+    # Но в данном случае будут передаваться текст фиксированных данных.
     return ''';Обычный студент;Отличник;Ботаник;Проплатил
 Начало семестра;0;0;0;0
 Первый месяц;1;1;1;0
@@ -64,11 +64,11 @@ set key noenhanced font ",20"
 set grid
 set key autotitle columnheader
 {ytics_label}
-set yrange [0:7]
+set yrange [0:9]
 
 
 set style fill transparent solid 0.3
-plot for [i=2:4] '{datafile}' using i:xtic(1) \
+plot for [i=2:5] '{datafile}' using i:xtic(1) \
     smooth mcsplines with filledcurves x1
 '''
 
@@ -115,9 +115,8 @@ def main():
     data_for_plot = get_remote_data()
     ylabel = set_ytics_label()
     datafile = create_file_to_plot(data_for_plot)
-    title = 'Уровень знаний в течении семестра'
+    title = 'Уровень знаний в течение семестра'
     plot_graph(datafile, ylabel, title)
-
     os.unlink(datafile)
     update_svg()
 
